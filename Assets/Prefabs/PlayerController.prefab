@@ -168,7 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 264e5285b1fdbad46bb87136e71f0456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
+  maxSpeed: 7
   jumpHeight: 7
   gravityScale: 1.5
   mainCamera: {fileID: 0}
+  startPos: {fileID: 0}

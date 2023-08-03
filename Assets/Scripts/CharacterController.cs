@@ -8,10 +8,11 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // Move player in 2D space
-    public float maxSpeed = 3.4f;
-    public float jumpHeight = 6.5f;
-    public float gravityScale = 1.5f;
-    public Camera mainCamera;
+    [SerializeField] private float maxSpeed = 3.4f;
+    [SerializeField] private float jumpHeight = 6.5f;
+    [SerializeField] float gravityScale = 1.5f;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private GameObject startPos;
 
     bool facingRight = true;
     float moveDirection = 0;
@@ -109,5 +110,16 @@ public class CharacterController : MonoBehaviour
         // Simple debug
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collided)
+    {
+        //check if the other object has a hazard tag
+        if (collided.CompareTag("Hazard"))
+        {
+            Debug.Log("hazard hit");
+
+            transform.position = startPos.transform.position;
+        }
     }
 }
