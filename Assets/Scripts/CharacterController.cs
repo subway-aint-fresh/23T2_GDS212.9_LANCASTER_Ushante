@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
@@ -13,6 +15,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float gravityScale = 1.5f;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject startPos;
+    [SerializeField] private GameObject nextPos;
+    [SerializeField] private GameObject lastPos;
 
     bool facingRight = true;
     float moveDirection = 0;
@@ -42,6 +46,8 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForJump();
+
         // Movement controls
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
         {
@@ -120,6 +126,26 @@ public class CharacterController : MonoBehaviour
             Debug.Log("hazard hit");
 
             transform.position = startPos.transform.position;
+        }
+
+        else if (collided.CompareTag("TutorialWall"))
+        {
+            Debug.Log("wall hit");
+
+            transform.position = nextPos.transform.position;
+        }
+        else if (collided.CompareTag("NextScene"))
+        {
+            Debug.Log("next scene wall hit");
+            SceneManager.LoadScene(2);
+        }
+    }
+
+    private void CheckForJump()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            transform.position = lastPos.transform.position;
         }
     }
 }
