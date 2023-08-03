@@ -46,7 +46,6 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForJump();
 
         // Movement controls
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
@@ -139,12 +138,10 @@ public class CharacterController : MonoBehaviour
             Debug.Log("next scene wall hit");
             SceneManager.LoadScene(2);
         }
-    }
-
-    private void CheckForJump()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
+        else if (collided.CompareTag("TutorialWall1"))
         {
+            Debug.Log("wall hit");
+
             transform.position = lastPos.transform.position;
         }
     }

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hazard
+  - TutorialWall
+  - NextScene
+  - TutorialWall1
   layers:
   - Default
   - TransparentFX
